@@ -19,7 +19,7 @@
 
   // Setup pnpm store inside container filesystem (fast), then install
   // "postCreateCommand": "sudo chown -R node:node /workspaces/react-awesome-query-builder/node_modules && pnpm config set store-dir /tmp/.pnpm-store && ./scripts/nvms.sh pnpm install",
-  "postCreateCommand": "sudo chown -R node:node /workspaces/react-awesome-query-builder/node_modules && ./scripts/nvms.sh pnpm install",
+  // "postCreateCommand": "sudo chown -R node:node /workspaces/react-awesome-query-builder/node_modules && ./scripts/nvms.sh pnpm install",
 
 
   // "postAttachCommand": {
