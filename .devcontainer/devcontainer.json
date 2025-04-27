@@ -1,6 +1,5 @@
 {
   "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
-  // "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/kreemer/features/chrometesting:1": {
       "version": "latest"
@@ -13,10 +12,19 @@
     }
   },
 
-  "postCreateCommand": "./scripts/nvms.sh pnpm install",
-  "postAttachCommand": {
-    "server": "./scripts/nvms.sh pnpm start"
-  },
+  // Mount a volume for node_modules to avoid slow /workspaces FS
+  "mounts": [
+    "type=volume,source=react-awesome-query-builder-node_modules,target=/workspaces/react-awesome-query-builder/node_modules"
+  ],
+
+  // Setup pnpm store inside container filesystem (fast), then install
+  // "postCreateCommand": "sudo chown -R node:node /workspaces/react-awesome-query-builder/node_modules && pnpm config set store-dir /tmp/.pnpm-store && ./scripts/nvms.sh pnpm install",
+  "postCreateCommand": "sudo chown -R node:node /workspaces/react-awesome-query-builder/node_modules && pnpm config && ./scripts/nvms.sh pnpm install",
+
+
+  // "postAttachCommand": {
+  //   "server": "./scripts/nvms.sh pnpm start"
+  // },
 
   "forwardPorts": [3001, 5174, 5175, 3002],
   "portsAttributes": {
